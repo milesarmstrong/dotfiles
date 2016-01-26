@@ -1,25 +1,29 @@
 [
     {
         "shell": [
-            ["git submodule update --init --recursive", "Installing submodules"]
-        ]
-    },
-    {
-        "shell": [
-           ["mkdir -p ~/.config/fish", "Checking folder structure exists"]
+            ["git submodule update --init --recursive", "Installing submodules"],
+            ["mkdir -p ~/.config/fish", "Checking fish config folder exists"],
+            ["mkdir -p ~/.vim/bundle", "Checking vim plugins folder exists"]
         ]
     },
     {
         "clean": [
             "~",
-            "~/.config/fish"
+            "~/.config/fish",
+            "~/.vim"
         ]
     },
     {
         "link": {
             "~/.config/fish/config.fish" : "config/fish/config.fish",
             "~/.gitconfig": "gitconfig",
-            "~/.vimrc": "vimrc"
+            "~/.vimrc": "vimrc",
+            "~/.vim/bundle/Vundle.vim" : "Vundle.vim/"
         }
+    },
+    {
+        "shell": [
+            ["./fonts/install.sh", "Installing powerline fonts"]
+        ]
     }
 ]

@@ -1,6 +1,7 @@
 # Miles' Dotfiles
 
-These are my dotfiles for a basic *nix setup
+These are my dotfiles for a basic *nix setup, they configure fish shell, vim, and git; and install
+the patched powerline fonts used by the vim airline plugin.
 
 ## Installation
 
@@ -11,10 +12,9 @@ $ git clone https://github.com/milesarmstrong/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/install
 ```
 
-Vim plugins are managed using [vundle](https://github.com/VundleVim/Vundle.vim), before opening vim for the first time do:
+Vim plugins are managed using [vundle](https://github.com/VundleVim/Vundle.vim), which is installed by dotbot, when opening vim for the first time do:
 
 ```
-$ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ vim +PluginInstall +qall
 ```
 
