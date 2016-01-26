@@ -28,7 +28,7 @@ function pips; pip list; end
 
 # Dotfiles shortcuts
 function rf; source ~/.config/fish/config.fish; end
-function ef; vim ~/.config/fish/config.fish; reloadf; end
+function ef; vim ~/.config/fish/config.fish; rf; end
 function ev; vim ~/.vimrc; end
 function eg; vim ~/.gitconfig; end
 function essh; vim ~/.ssh/config; end
