@@ -1,0 +1,45 @@
+[user]
+    name = Miles Armstrong
+    email = milesarmstrong@gmail.com
+
+[core]
+    pager = cat
+    editor = vim
+    excludesfile = /Users/miles/.gitignore
+
+[alias]
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+
+    a = add
+
+    c = commit
+    cm = commit -m
+
+    co = checkout
+
+    d = difftool
+
+    pu = push
+    pl = pull
+
+    s = status
+
+    unstage = reset HEAD
+
+[push]
+    default = current
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[mergetool]
+    prompt = false
