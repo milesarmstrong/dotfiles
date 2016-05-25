@@ -1,3 +1,6 @@
+####### Set terminal colour scheme #########
+eval sh $HOME/.dotfiles/base16-shell/base16-flat.dark.sh
+
 ######## ENVIRONMENT ########
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
     if test -d $argv[1]

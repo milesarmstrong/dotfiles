@@ -19,13 +19,13 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'altercation/vim-colors-solarized' " Colour scheme
+Plugin 'chriskempson/base16-vim' " Colour scheme
 Plugin 'tpope/vim-surround' " Easy bracketing / quoting
 Plugin 'tpope/vim-commentary' " Easy commenting
 Plugin 'kien/ctrlp.vim' " Fuzzy file finder
 Plugin 'scrooloose/nerdtree' " File tree
 Plugin 'vim-airline/vim-airline' " Status bar
-Plugin 'vim-airline/vim-airline-themes' " Status bar
+Plugin 'vim-airline/vim-airline-themes' " Status bar colours
 Plugin 'scrooloose/syntastic' " Syntax checking
 Plugin 'tpope/vim-unimpaired' " Good key mappings
 
@@ -128,16 +128,16 @@ noremap <leader>t : NERDTreeToggle<cr>
 set pastetoggle=<leader>p
 
 " Colours
-set t_Co=16
+let base16colorspace=256
 set background=dark
-colorscheme solarized
+colorscheme base16-flat
 
 " Airline
 set laststatus=2
 set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
-let g:airline_theme='solarized'
+let g:airline_theme='base16_flat'
 let g:airline#extensions#syntastic#enabled = 1
 
 " Syntastic
