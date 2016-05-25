@@ -116,7 +116,7 @@ let mapleader=","
 nnoremap <leader>n :setlocal number!<cr>
 
 " Write to protected file (request sudo)
-noremap <Leader>W :w sudo tee %<cr>
+noremap <Leader>W :w !sudo tee %<cr>
 
 " Turn off search highlighting
 nnoremap <leader>h :nohlsearch<cr>
