@@ -26,8 +26,7 @@ Plugin 'kien/ctrlp.vim' " Fuzzy file finder
 Plugin 'scrooloose/nerdtree' " File tree
 Plugin 'vim-airline/vim-airline' " Status bar
 Plugin 'vim-airline/vim-airline-themes' " Status bar colours
-Plugin 'scrooloose/syntastic' " Syntax checking
-Plugin 'tpope/vim-unimpaired' " Good key mappings
+Plugin 'jeetsukumaran/vim-buffergator' " Bufferator
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -71,9 +70,9 @@ set noesckeys           " remove the delay when hitting esc in insert mode
 set ttimeout
 set ttimeoutlen=1
 
-
-""""" TEMPORARY FILES """"""
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Temporary Files
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set history=1000        " keep 1000 lines of command line history
 set undofile            " save undo history to a file
 set undoreload=10000    " save 10000 lines of undo history
@@ -93,7 +92,10 @@ if !isdirectory( expand( &directory ) )
     call mkdir( expand( &directory ), "p" )
 endif
 
-""""" KEY BINDINGS """""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Bindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader=","
 
 " Stop using the cursor keys once and for all! (Unbind them)
 nnoremap <up> <nop>
@@ -109,14 +111,11 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
-" Set leader keys
-let mapleader=","
-
 " Toggle line numbers
 nnoremap <leader>n :setlocal number!<cr>
 
 " Write to protected file (request sudo)
-noremap <Leader>W :w !sudo tee %<cr>
+noremap <Leader>W :w ! sudo tee %<cr>
 
 " Turn off search highlighting
 nnoremap <leader>h :nohlsearch<cr>
@@ -124,30 +123,49 @@ nnoremap <leader>h :nohlsearch<cr>
 " Open tree view
 noremap <leader>t : NERDTreeToggle<cr>
 
-" Toggle Paste
+noremap <leader>w <C-w><C-w>
+
+" Toggle paste
 set pastetoggle=<leader>p
 
-" Colours
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CtrlP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+  \ }
+
+noremap <leader>c : CtrlP<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Buffergator
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:buffergator_suppress_keymaps = 1
+
+" Go to the previous buffer open
+nmap <leader>jj :BuffergatorMruCyclePrev<cr>
+
+" Go to the next buffer open
+nmap <leader>kk :BuffergatorMruCycleNext<cr>
+
+" View the entire list of buffers open
+nmap <leader>b :BuffergatorToggle<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colour Scheme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let base16colorspace=256
 set background=dark
 colorscheme base16-flat
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
 let g:airline_theme='base16_flat'
 let g:airline#extensions#syntastic#enabled = 1
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-noremap <leader>e :SyntasticToggleMode<CR>
-noremap <leader>s :SyntasticCheck<CR>
