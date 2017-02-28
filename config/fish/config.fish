@@ -1,5 +1,7 @@
 ####### Set terminal colour scheme #########
-eval sh $HOME/.dotfiles/base16-shell/base16-flat.dark.sh
+if status --is-interactive
+    eval sh $HOME/.config/base16-shell/scripts/base16-eighties.sh
+end
 
 ######## ENVIRONMENT ########
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
@@ -19,6 +21,13 @@ prepend_to_path "$HOME/bin"
 
 set -gx fish_greeting ''
 set -gx EDITOR vim
+
+set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
+
+set -gx GOPATH /Users/milesarmstrong/dev/go
+
+set -x NVM_DIR ~/.nvm
+source ~/.config/fish/nvm-wrapper/nvm.fish
 
 ######### ALIASES #########
 
@@ -49,12 +58,12 @@ function whatip; curl "http://whatismyip.akamai.com"; echo; end;
 ######## PROMPT #########
 
 set normal (set_color normal)
-set magenta (set_color magenta)
-set yellow (set_color yellow)
-set green (set_color green)
-set brown (set_color brown)
-set gray (set_color -o black)
-set red (set_color red)
+set magenta (set_color brmagenta)
+set yellow (set_color bryellow)
+set green (set_color brgreen)
+set brown (set_color brcyan)
+set gray (set_color black)
+set red (set_color brred)
 
 function fish_prompt
     # Line 1

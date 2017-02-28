@@ -22,11 +22,15 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'chriskempson/base16-vim' " Colour scheme
 Plugin 'tpope/vim-surround' " Easy bracketing / quoting
 Plugin 'tpope/vim-commentary' " Easy commenting
+Plugin 'tpope/vim-fugitive' " Git functions
 Plugin 'kien/ctrlp.vim' " Fuzzy file finder
-Plugin 'scrooloose/nerdtree' " File tree
 Plugin 'vim-airline/vim-airline' " Status bar
 Plugin 'vim-airline/vim-airline-themes' " Status bar colours
 Plugin 'jeetsukumaran/vim-buffergator' " Bufferator
+Plugin 'editorconfig/editorconfig-vim' " EditorConfig
+Plugin 'fatih/vim-go' " Go
+Plugin 'vim-ruby/vim-ruby' " Ruby
+Plugin 'w0rp/ale' " Asynchronous linting
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -123,10 +127,17 @@ nnoremap <leader>h :nohlsearch<cr>
 " Open tree view
 noremap <leader>t : NERDTreeToggle<cr>
 
+" Cycle through windows
 noremap <leader>w <C-w><C-w>
+
+" Close windows
+noremap <leader>q <C-w>q
 
 " Toggle paste
 set pastetoggle=<leader>p
+
+" Format JSON
+noremap <leader>j : %!python -m json.tool<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP
@@ -138,6 +149,26 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 noremap <leader>c : CtrlP<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Folding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" turn on folding
+set foldmethod=syntax
+
+"toggle folds with space
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+
+" expand all folds when entering a file
+autocmd BufWinEnter * silent! :%foldopen!
+
+" don't close folds after running go fmt
+let g:go_fmt_experimental = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ruby
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd Filetype ruby setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Buffergator
@@ -158,7 +189,7 @@ nmap <leader>b :BuffergatorToggle<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let base16colorspace=256
 set background=dark
-colorscheme base16-flat
+colorscheme base16-eighties
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline
@@ -167,5 +198,13 @@ set laststatus=2
 set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
-let g:airline_theme='base16_flat'
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline_theme='base16_eighties'
+let g:airline_section_error = '%{ALEGetStatusLine()}'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_statusline_format = ['☒ %d', '⚠ %d', '☑︎ ok']
+let g:ale_sign_error = '☒'
+let g:ale_sign_warning = '⚠ '
+let g:ale_sign_column_always = 1
