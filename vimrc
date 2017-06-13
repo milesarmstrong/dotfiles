@@ -69,6 +69,9 @@ set noesckeys           " remove the delay when hitting esc in insert mode
 set ttimeout
 set ttimeoutlen=1
 
+set splitbelow
+set splitright
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Temporary Files
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -124,6 +127,12 @@ noremap <leader>t : NERDTreeToggle<cr>
 
 " Cycle through windows
 noremap <leader>w <C-w><C-w>
+
+" Navigate splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Close windows
 noremap <leader>q <C-w>q
