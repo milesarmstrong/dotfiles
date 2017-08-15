@@ -31,6 +31,9 @@ source ~/.config/fish/nvm-wrapper/nvm.fish
 
 ######### ALIASES #########
 
+# Sublime shortcut
+function subl; /usr/local/bin/subl $argv; end
+
 # Brew shortcuts
 function brews; brew list; end
 function brup; brew update; brew upgrade; end

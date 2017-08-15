@@ -172,7 +172,8 @@ let g:go_fmt_experimental = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd Filetype ruby setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
+autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
+autocmd Filetype yaml setlocal expandtab softtabstop=2 shiftwidth=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Buffergator
@@ -203,7 +204,10 @@ set noshowmode
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
 let g:airline_theme='base16_eighties'
-let g:airline_section_error = '%{ALEGetStatusLine()}'
+function ALE() abort
+    return exists('*ALEGetStatusLine') ? ALEGetStatusLine() : ''
+endfunction
+let g:airline_section_error = '%{ALE()}'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ALE
