@@ -4,7 +4,7 @@ set nocompatible
 
 " Vim needs a POSIX-Compliant shell. Fish is not.
 if $SHELL =~ '/usr/local/bin/fish'
-set shell=/bin/sh
+    set shell=/bin/sh
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -23,13 +23,8 @@ Plugin 'chriskempson/base16-vim' " Colour scheme
 Plugin 'tpope/vim-surround' " Easy bracketing / quoting
 Plugin 'tpope/vim-commentary' " Easy commenting
 Plugin 'tpope/vim-fugitive' " Git functions
-Plugin 'kien/ctrlp.vim' " Fuzzy file finder
 Plugin 'vim-airline/vim-airline' " Status bar
 Plugin 'vim-airline/vim-airline-themes' " Status bar colours
-Plugin 'jeetsukumaran/vim-buffergator' " Bufferator
-Plugin 'editorconfig/editorconfig-vim' " EditorConfig
-Plugin 'fatih/vim-go' " Go
-Plugin 'vim-ruby/vim-ruby' " Ruby
 Plugin 'w0rp/ale' " Asynchronous linting
 
 " All of your Plugins must be added before the following line
@@ -64,7 +59,6 @@ set softtabstop=4       " set soft tabstop size to 4
 set shiftwidth=4        " set size of an 'indent' to 4
 set autoindent          " automatically indent new lines
 set smarttab            " make adding/removing tabs (spaces) smarter
-
 set noesckeys           " remove the delay when hitting esc in insert mode
 set ttimeout
 set ttimeoutlen=1
@@ -122,20 +116,11 @@ noremap <Leader>W :w ! sudo tee %<cr>
 " Turn off search highlighting
 nnoremap <leader>h :nohlsearch<cr>
 
-" Open tree view
-noremap <leader>t : NERDTreeToggle<cr>
-
-" Cycle through windows
-noremap <leader>w <C-w><C-w>
-
 " Navigate splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" Close windows
-noremap <leader>q <C-w>q
 
 " Toggle paste
 set pastetoggle=<leader>p
@@ -143,16 +128,20 @@ set pastetoggle=<leader>p
 " Format JSON
 noremap <leader>j : %!python -m json.tool<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CtrlP
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-  \ }
+" Tag Jumping
+command! MakeTags !ctags -R .
 
-noremap <leader>c : CtrlP<cr>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" File Finding/Browsing
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set path+=**
+set wildmenu
+
+let g:netrw_banner=0        " disable annoying banner
+let g:netrw_altv=1          " open splits to the right
+let g:netrw_liststyle=3     " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Folding
@@ -165,29 +154,6 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 
 " expand all folds when entering a file
 autocmd BufWinEnter * silent! :%foldopen!
-
-" don't close folds after running go fmt
-let g:go_fmt_experimental = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ruby
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd Filetype ruby setlocal expandtab softtabstop=2 shiftwidth=2
-autocmd Filetype yaml setlocal expandtab softtabstop=2 shiftwidth=2
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Buffergator
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:buffergator_suppress_keymaps = 1
-
-" Go to the previous buffer open
-nmap <leader>jj :BuffergatorMruCyclePrev<cr>
-
-" Go to the next buffer open
-nmap <leader>kk :BuffergatorMruCycleNext<cr>
-
-" View the entire list of buffers open
-nmap <leader>b :BuffergatorToggle<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colour Scheme

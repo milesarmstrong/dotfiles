@@ -6,33 +6,18 @@ end
 ######## ENVIRONMENT ########
 function prepend_to_path -d "Prepend the given dir to PATH if it exists and is not already in it"
     if test -d $argv[1]
-        #if not contains $argv[1] $PATH
+        if not contains $argv[1] $PATH
             set -gx PATH "$argv[1]" $PATH
-        #end
+        end
     end
 end
 
-prepend_to_path "/sbin"
-prepend_to_path "/usr/sbin"
-prepend_to_path "/bin"
-prepend_to_path "/usr/bin"
 prepend_to_path "/usr/local/bin"
-prepend_to_path "$HOME/bin"
 
 set -gx fish_greeting ''
 set -gx EDITOR vim
 
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-
-set -gx GOPATH /Users/milesarmstrong/dev/go
-
-set -x NVM_DIR ~/.nvm
-source ~/.config/fish/nvm-wrapper/nvm.fish
-
 ######### ALIASES #########
-
-# Sublime shortcut
-function subl; /usr/local/bin/subl $argv; end
 
 # Brew shortcuts
 function brews; brew list; end
