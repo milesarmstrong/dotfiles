@@ -33,15 +33,17 @@ function ev; vim ~/.vimrc; end
 function eg; vim ~/.gitconfig; end
 function essh; vim ~/.ssh/config; end
 
-# Git shortcuts
-function g; git $argv; end
-function gi; curl -L -s http://www.gitignore.io/api/$argv; end
+# Aliases
+alias g "git";
+alias d "docker";
 
 # Update locate db
 function updatedb; sudo /usr/libexec/locate.updatedb; end
 
 # Get public IP
 function whatip; curl "http://whatismyip.akamai.com"; echo; end;
+
+eval (python -m virtualfish)
 
 ######## PROMPT #########
 
@@ -53,68 +55,56 @@ set brown (set_color brcyan)
 set gray (set_color black)
 set red (set_color brred)
 
+set -g __fish_git_prompt_show_informative_status 1
+set -g __fish_git_prompt_hide_untrackedfiles 1
+
+set -g __fish_git_prompt_showcleanstate 1
+set -g __fish_git_prompt_showdirtystate 1
+set -g __fish_git_prompt_showstagedstate 1
+set -g __fish_git_prompt_showuntrackedfiles 1
+
+set -g __fish_git_prompt_color_branch normal
+set -g __fish_git_prompt_char_stateseparator " : "
+
+set -g __fish_git_prompt_color_stagedstate yellow
+set -g __fish_git_prompt_char_stagedstate 'o'
+set -g __fish_git_prompt_color_dirtystate blue
+set -g __fish_git_prompt_char_dirtystate '+'
+set -g __fish_git_prompt_color_untrackedfiles magenta
+set -g __fish_git_prompt_char_untrackedfiles '?'
+set -g __fish_git_prompt_color_conflictedstate red
+set -g __fish_git_prompt_char_conflictedstate '!'
+set -g __fish_git_prompt_color_cleanstate green
+set -g __fish_git_prompt_char_cleanstate '✓'
+
 function fish_prompt
     # Line 1
-    printf 'on '
-    set_color yellow
-    printf '%s' (hostname|cut -d . -f 1)
-    set_color normal
-    printf ' as '
+    set_color brmagenta
+    echo -n -s (whoami)
+    set_color $fish_color_normal
+    echo -n -s ' ⋅'
 
-    set_color magenta
-    printf '%s' (whoami)
-    set_color normal
-    printf ' in '
+    set_color -i brblack
+    echo -n -s (__kube_prompt)
+    set_color $fish_color_normal
+    echo -n -s ' ⋅ '
 
-    set_color $fish_color_cwd
-    printf '%s ' (prompt_pwd)
+    set_color brgreen
+    echo -n -s (prompt_pwd)
+    set_color $fish_color_normal
 
     echo
 
     # Line 2
     if set -q VIRTUAL_ENV
-        set_color green
-        printf 'env:%s ' (set_color blue)(basename $VIRTUAL_ENV)(set_color green)
+        echo -n -s (set_color green) 'env:' (set_color blue) (basename $VIRTUAL_ENV) ' ' (set_color green)
     end
 
-    printf '➤ '
+    echo -n -s "➤ "
 
     set_color normal
 end
 
-set THEME_GIT_PROMPT_UNTRACKED "$magenta?$normal"
-set THEME_GIT_PROMPT_ADDED "$green+$normal"
-set THEME_GIT_PROMPT_MODIFIED "$yellow⚡$normal"
-set THEME_GIT_PROMPT_RENAMED "$yellow↬$normal"
-set THEME_GIT_PROMPT_DELETED "$red×$normal"
-set THEME_GIT_PROMPT_UNMERGED "$red⇏$normal"
-
-function git_currentbranch
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
-end
-
-# Get the status of the working tree
-function fish_right_prompt -d "Write out the right prompt"
-  set INDEX (git status --porcelain 2> /dev/null)
-  set GITBRANCH (git_currentbranch)
-  set STATUS "$GITBRANCH$STATUS"
-  if echo $INDEX | grep '^?? '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_UNTRACKED"
-  end
-  if echo $INDEX | grep '^A  '> /dev/null; or echo $INDEX | grep '^M  '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_ADDED"
-  end
-  if echo $INDEX | grep '^ M '> /dev/null; or echo $INDEX | grep '^AM '> /dev/null; or echo $INDEX | grep '^ T '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_MODIFIED"
-  end
-  if echo $INDEX | grep '^R  '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_RENAMED"
-  end
-  if echo $INDEX | grep '^ D '> /dev/null; or echo "$INDEX" | grep '^AD '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_DELETED"
-  end
-  if echo $INDEX | grep '^UU '> /dev/null
-    set STATUS "$STATUS $THEME_GIT_PROMPT_UNMERGED"
-  end
-  printf $STATUS
+function fish_right_prompt
+    printf '%s ' (__fish_git_prompt)
 end
