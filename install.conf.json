@@ -16,6 +16,7 @@
     {
         "link": {
             "~/.config/fish/config.fish" : "config/fish/config.fish",
+            "~/.config/starship.toml" : "config/starship.toml",
             "~/.gitconfig": "gitconfig",
             "~/.vimrc": "vimrc",
             "~/.vim/bundle/Vundle.vim" : "Vundle.vim/"

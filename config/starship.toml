@@ -1,0 +1,13 @@
+add_newline = false
+
+[character]
+symbol = "➜"
+
+[kubernetes]
+disabled = false
+
+[cmd_duration]
+disabled = true
+
+[terraform]
+disabled = true
