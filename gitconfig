@@ -1,6 +1,7 @@
 [user]
     name = Miles Armstrong
     email = miles@milesarmstrong.co.uk
+    signingkey = 690F02A803582757
 
 [core]
     pager = cat
@@ -48,7 +49,7 @@
     prompt = false
 
 [gpg]
-    program = /usr/local/bin/gpg
+    program = /opt/homebrew/bin/gpg
 
 [commit]
     gpgsign = true
