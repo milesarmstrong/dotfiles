@@ -14,8 +14,11 @@
 
     a = add
 
+    br = checkout -b
+
     c = commit
     cm = commit -m
+    clean = clean -di
 
     co = checkout
 
@@ -43,3 +46,15 @@
 
 [mergetool]
     prompt = false
+
+[gpg]
+    program = /usr/local/bin/gpg
+
+[commit]
+    gpgsign = true
+
+[pull]
+    rebase = true
+
+[init]
+    defaultBranch = main

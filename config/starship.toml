@@ -1,13 +1,26 @@
 add_newline = false
 
+[cmd_duration]
+disabled = true
+
 [character]
-symbol = "➜"
+success_symbol = "[➜](bold green) "
+error_symbol = "[✗](bold red) "
 
 [kubernetes]
 disabled = false
 
-[cmd_duration]
+[elixir]
 disabled = true
 
-[terraform]
+[erlang]
 disabled = true
+
+[package]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[golang]
+disabled = false

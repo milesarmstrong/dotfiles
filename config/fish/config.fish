@@ -6,13 +6,12 @@ end
 ######## Environment ########
 set -gx fish_greeting ''
 
-set -g fish_user_paths "$HOME/.local/bin" $fish_user_paths
-set -g fish_user_paths "$HOME/go/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/go/bin" $fish_user_paths
+fish_add_path "/usr/local/bin"
+fish_add_path "$HOME/.local/bin"
 
 set -gx EDITOR vim
-set -gx GOPATH "/home/miles/go"
+set -gx GPG_TTY (tty)
+set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
 ######### Aliases #########
 
@@ -25,8 +24,8 @@ function ef; vim ~/.config/fish/config.fish; rf; end
 function ev; vim ~/.vimrc; end
 function eg; vim ~/.gitconfig; end
 function essh; vim ~/.ssh/config; end
+function esr; vim ~/.config/starship.toml; end
 function uuid; uuidgen | sed 's/-//g' | tr [:upper:] [:lower:]; end
 
-eval (python3 -m virtualfish)
 
 starship init fish | source
